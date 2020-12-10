@@ -1,11 +1,8 @@
 import React from 'react';
-import { useSelector, useDispatch, connect } from 'react-redux';
-import { increment, decrement, incrementAsync, decrementAsync } from './ducks';
+import { connect } from 'react-redux';
+import { increment, decrement, incrementAsync, decrementAsync, counterSelector } from './ducks';
 
-function Counter({ increment, decrement }) {
-    const count = useSelector(state => state.counter.count);
-    const dispatch = useDispatch();
-
+function Counter({ count, increment, decrement, incrementAsync, decrementAsync }) {
     return(
         <div>
             <span>Count: {count}</span>
@@ -14,13 +11,14 @@ function Counter({ increment, decrement }) {
             <br/>
             <button onClick={() => decrement()}>Decrement</button>
             <br/>
-            <button onClick={() => dispatch(incrementAsync())}>Increment Async</button>
+            <button onClick={() => incrementAsync()}>Increment Async</button>
             <br/>
-            <button onClick={() => dispatch(decrementAsync())}>Decrement Async</button>
+            <button onClick={() => decrementAsync()}>Decrement Async</button>
         </div>
     )
 }
 
-const mapDispatchToProps = { increment, decrement };
+const mapStateToProps = state => ({ count: counterSelector(state) })
+const mapDispatchToProps = { increment, decrement, incrementAsync, decrementAsync };
 
-export default connect(null, mapDispatchToProps)(Counter);
+export default connect(mapStateToProps, mapDispatchToProps)(Counter);

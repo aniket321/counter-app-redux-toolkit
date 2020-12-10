@@ -1,4 +1,6 @@
 import { createAction, createReducer } from '@reduxjs/toolkit';
+import { createSelector } from 'reselect';
+import { put, takeEvery, delay } from 'redux-saga/effects';
 
 // Action Types
 export const INCREMENT = 'counter/increment';
@@ -20,5 +22,33 @@ const counterReducer = createReducer(initialState, {
   [increment]: state => ({ count: state.count + 1 }),
   [decrement]: state => ({ count: state.count - 1 })
 })
+
+// Selectors
+const counterSelectorValue = state => state.counter.count;
+
+export const counterSelector = createSelector(
+  counterSelectorValue,
+  count => count
+)
+
+// Sagas
+function* incrementAsyncWorker() {
+   yield delay(1000);
+   yield put(increment());
+}
+
+function* decrementAsyncWorker() {
+    yield delay(1000);
+    yield put(decrement());
+}
+
+export function* watchIncrementAsync() {
+    yield takeEvery(INCREMENT_ASYNC, incrementAsyncWorker);
+}
+
+export function* watchDecrementAsync() {
+    yield takeEvery(DECREMENT_ASYNC, decrementAsyncWorker);
+}
+
 
 export default counterReducer;
