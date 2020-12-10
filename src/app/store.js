@@ -1,6 +1,6 @@
 import { configureStore } from '@reduxjs/toolkit';
 import createSagaMiddleware from 'redux-saga';
-import counterReducer from '../features/counter/counterSlice';
+import counterReducer from '../features/counter/ducks';
 import rootSagas from '../saga';
 
 const sagaMiddleware = createSagaMiddleware();

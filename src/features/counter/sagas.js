@@ -1,5 +1,5 @@
-import { put, takeLatest, delay } from 'redux-saga/effects';
-import { increment, decrement } from './counterSlice';
+import { put, takeEvery, delay } from 'redux-saga/effects';
+import { increment, decrement } from './ducks';
 
 function* incrementAsync() {
    yield delay(1000);
@@ -12,9 +12,9 @@ function* decrementAsync() {
 }
 
 export function* watchIncrementAsync() {
-    yield takeLatest('counter/incrementAsync', incrementAsync);
+    yield takeEvery('counter/incrementAsync', incrementAsync);
 }
 
 export function* watchDecrementAsync() {
-    yield takeLatest('counter/decrementAsync', decrementAsync);
+    yield takeEvery('counter/decrementAsync', decrementAsync);
 }
