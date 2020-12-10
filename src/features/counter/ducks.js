@@ -9,18 +9,18 @@ export const INCREMENT_ASYNC = 'counter/incrementAsync';
 export const DECREMENT_ASYNC = 'counter/decrementAsync';
 
 // Action Creators
-export const increment = createAction(INCREMENT);
-export const decrement = createAction(DECREMENT);
-export const incrementAsync = createAction(INCREMENT_ASYNC);
-export const decrementAsync = createAction(DECREMENT_ASYNC);
+export const incrementAction = createAction(INCREMENT);
+export const decrementAction = createAction(DECREMENT);
+export const incrementAsyncAction = createAction(INCREMENT_ASYNC);
+export const decrementAsyncAction = createAction(DECREMENT_ASYNC);
 
 // Initial state
 const initialState = { count: 0 };
 
 // Reducer
 const counterReducer = createReducer(initialState, {
-  [increment]: state => ({ count: state.count + 1 }),
-  [decrement]: state => ({ count: state.count - 1 })
+  [incrementAction]: state => ({ count: state.count + 1 }),
+  [decrementAction]: state => ({ count: state.count - 1 })
 })
 
 // Selectors
@@ -34,12 +34,12 @@ export const counterSelector = createSelector(
 // Sagas
 function* incrementAsyncWorker() {
    yield delay(1000);
-   yield put(increment());
+   yield put(incrementAction());
 }
 
 function* decrementAsyncWorker() {
     yield delay(1000);
-    yield put(decrement());
+    yield put(decrementAction());
 }
 
 export function* watchIncrementAsync() {
